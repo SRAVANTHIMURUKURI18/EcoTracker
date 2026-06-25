@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-darkBg text-slate-100 font-sans min-h-screen antialiased selection:bg-accentGreen selection:text-darkBg;
+  }
+}
+
+/* Glassmorphism utility card styling */
+.glass-card {
+  background: rgba(21, 28, 44, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -8px rgba(13, 211, 142, 0.15);
+  border-color: rgba(13, 211, 142, 0.2);
+}
+
+/* SVG gauge path animations */
+.gauge-path {
+  transition: stroke-dasharray 0.6s ease-in-out, stroke 0.6s ease-in-out;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0dd38e;
+}
+
+/* Calendar heatmap blocks styling */
+.heatmap-day {
+  transition: transform 0.2s ease;
+}
+.heatmap-day:hover {
+  transform: scale(1.15);
+  z-index: 10;
+}

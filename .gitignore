@@ -1,0 +1,29 @@
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependency directories
+node_modules/
+jspm_packages/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+.next/
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
