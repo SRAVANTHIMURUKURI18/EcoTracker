@@ -1,20 +1,30 @@
 import os
+import json
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 from functools import wraps
 from flask import request, jsonify
 
 # Load Service Account Certificate
-current_dir = os.path.dirname(os.path.abspath(__file__))
-service_account_path = os.path.join(current_dir, 'serviceAccountKey.json')
-
 if not firebase_admin._apps:
     try:
-        cred = credentials.Certificate(service_account_path)
+        # 1. Try to load credentials from environment variable dictionary (for Render/Production)
+        creds_json = os.environ.get("FIREBASE_CREDENTIALS")
+        if creds_json:
+            creds_dict = json.loads(creds_json)
+            cred = credentials.Certificate(creds_dict)
+            print("Firebase Admin SDK initialized successfully via environment credentials.")
+        else:
+            # 2. Fallback to local file path (for Local Development)
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            service_account_path = os.path.join(current_dir, 'serviceAccountKey.json')
+            cred = credentials.Certificate(service_account_path)
+            print("Firebase Admin SDK initialized successfully via local serviceAccountKey.json.")
+            
         firebase_admin.initialize_app(cred)
     except Exception as e:
         print(f"Error initializing Firebase Admin SDK: {e}")
-        # Initialize app default if serviceAccountKey isn't present
+        # Initialize app default if both methods fail (rely on ADC)
         firebase_admin.initialize_app()
 
 db = firestore.client()
